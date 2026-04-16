@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heat Index Checker</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background: #0f1f3d;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.card-box {
+    background: #111827;
+    color: #ffffff;
+    padding: 50px;
+    width: 700px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    text-align: center;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.title img {
+    width: 40px;
+}
+
+h1 {
+    color: #fbbf24;
+    margin: 0;
+}
+
+h4 {
+    color: #e5e7eb;
+}
+
+input {
+    background: #e5e7eb !important;
+    border: none !important;
+    border-radius: 8px !important;
+}
+
+.btn-custom {
+    background: #f59e0b;
+    color: #111827;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn-custom:hover {
+    background: #d97706;
+}
+
+#result {
+    margin-top: 20px;
+    color: #fbbf24;
+}
+
+footer {
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.c1 { width: 200px; height: 200px; background: #ff3b00; top: -50px; left: -50px; }
+.c2 { width: 120px; height: 120px; background: #ff6a00; bottom: 40px; right: 40px; }
+.c3 { width: 160px; height: 160px; background: #ff1e00; top: 30%; right: 10%; }
+.c4 { width: 90px; height: 90px; background: #ff9500; bottom: 20%; left: 15%; }
+.c5 { width: 140px; height: 140px; background: #ff5c33; top: 60%; left: 70%; }
+</style>
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+    <div class="circle c5"></div>
+
+    <div class="card-box">
+
+        <div class="title">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/019/787/016/small/fire-icon-on-transparent-background-free-png.png">
+            <h1>Heat Index Checker</h1>
+        </div>
+
+        <h4>Enter Values</h4>
+
+        <input type="number" id="temp" class="form-control mb-3" placeholder="Temperature (°C)">
+        <input type="number" id="humidity" class="form-control mb-3" placeholder="Humidity (%)">
+
+        <button class="btn btn-custom w-100 mt-2" onclick="checkHeatIndex()">Check</button>
+
+        <p id="result"></p>
+
+    </div>
+
+</div>
+
+<footer>
+    Rodolfo C. Lao III ∥ 9-Ruby
+</footer>
+
+<script>
+function checkHeatIndex() {
+
+    let temp = parseFloat(document.getElementById("temp").value);
+    let humidity = parseFloat(document.getElementById("humidity").value);
+
+    if (isNaN(temp) || isNaN(humidity)) {
+        alert("Please enter valid values!");
+        return;
+    }
+
+    // KEEPING YOUR FORMULA
+    let heatIndex = temp + (0.33 * humidity) - 4;
+
+    let status = "";
+
+    // FIXED CLASSIFICATION (NO GAPS)
+    if (heatIndex <= 27) {
+        status = "Comfortable / Cool";
+    } 
+    else if (heatIndex <= 32) {
+        status = "Warm";
+    } 
+    else if (heatIndex <= 37) {
+        status = "Hot";
+    } 
+    else if (heatIndex <= 41) {
+        status = "Very Hot / Caution";
+    } 
+    else {
+        status = "Extreme Heat / Danger";
+    }
+
+    document.getElementById("result").innerHTML =
+        "Heat Index: " + heatIndex.toFixed(1) + "°C <br> Status: " + status;
+
+    alert(
+        "Heat Index: " + heatIndex.toFixed(1) +
+        "°C\nStatus: " + status
+    );
+}
+</script>
+
+</body>
+</html>
