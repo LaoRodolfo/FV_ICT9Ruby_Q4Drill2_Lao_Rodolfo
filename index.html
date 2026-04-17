@@ -144,12 +144,12 @@ function checkHeatIndex() {
         return;
     }
 
-    // KEEPING YOUR FORMULA
+
     let heatIndex = temp + (0.33 * humidity) - 4;
 
     let status = "";
 
-    // FIXED CLASSIFICATION (NO GAPS)
+
     if (heatIndex <= 27) {
         status = "Comfortable / Cool";
     } 
